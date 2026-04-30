@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+:root {
+    --bg-color: #ac1515;
+    /* Fondo oscuro        */
+    --primary: #173d4d;
+    /* Azul principal      */
+    --accent: #65a4f7;
+    /* Color de destaque   */
+    --text-main: #f8fafc;
+    /* Texto principal     */
+    --radius: 12px;
+    /* Bordes redondeados  */
+}
+
+.mi-boton {
+    background-color: var(--primary);
+    border-radius: var(--radius);
+}
