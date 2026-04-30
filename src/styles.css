@@ -1,19 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 /* src/styles.css */
 :root {
-    --bg-color: #ac1515;
-    /* Fondo oscuro        */
-    --primary: #173d4d;
-    /* Azul principal      */
-    --accent: #65a4f7;
-    /* Color de destaque   */
+    --bg-color: #0d0d0d;
+    /* Fondo oscuro (Negro)*/
+    --primary: #8b0000;
+    /* Rojo oscuro         */
+    --accent: #ff2a2a;
+    /* Rojo brillante      */
     --text-main: #f8fafc;
     /* Texto principal     */
     --radius: 12px;
     /* Bordes redondeados  */
 }
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 .mi-boton {
     background-color: var(--primary);
     border-radius: var(--radius);
+    color: var(--text-main);
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.mi-boton:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
 }
