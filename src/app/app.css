@@ -1,49 +1,5 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.logo {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--text-main);
-}
-
-.logo span {
-  color: var(--accent);
-}
-
-.nav-links {
-  display: flex;
-  gap: 30px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: rgba(248, 250, 252, 0.7);
-  font-size: 15px;
-  font-weight: 500;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover, .nav-links a.active {
-  color: var(--text-main);
-}
-
 .main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.footer {
-  text-align: center;
-  padding: 30px;
-  font-size: 13px;
-  color: rgba(248, 250, 252, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
