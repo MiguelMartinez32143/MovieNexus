@@ -3,8 +3,21 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  /* Glassmorphism: cristal esmerilado */
+  background: var(--glass);
+  /* Fondo oscuro rojizo semitransparente */
+  backdrop-filter: blur(12px);
+  /* ¡La magia! Desenfoca lo que hay detrás */
+  -webkit-backdrop-filter: blur(12px);
+  /* Compatibilidad Safari */
+  border-bottom: var(--border-glass);
+  /* Borde sutil translúcido */
+
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  /* Siempre encima del contenido */
 }
 
 .logo {
@@ -27,9 +40,34 @@
   color: rgba(248, 250, 252, 0.7);
   font-size: 15px;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: var(--transition);
+  position: relative;
+  /* Necesario para el ::after */
+  padding-bottom: 4px;
 }
 
-.nav-links a:hover, .nav-links a.active {
-  color: var(--text-main);
+/* Subrayado rojo animado */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  /* Raya roja */
+  transform: scaleX(0);
+  /* Empieza invisible */
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--text-main);          /* Texto blanco al activar */
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);             /* La raya roja aparece de izquierda a derecha */
 }
