@@ -13,12 +13,9 @@
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: var(--spacing-md);
-  color: var(--text-main);
   letter-spacing: -1px;
-}
-
-.gradient-text {
-  background: var(--grad-main);
+  /* Gradiente en todo el título: blanco hasta la 'o', luego vira al rojo */
+  background: linear-gradient(90deg, #ffffff 38%, #cc2222 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

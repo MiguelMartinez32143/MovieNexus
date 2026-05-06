@@ -5,8 +5,8 @@
   padding: 20px 50px;
 
   /* Glassmorphism: cristal esmerilado */
-  background: var(--glass);
-  /* Fondo oscuro rojizo semitransparente */
+  background: rgba(0, 0, 0, 0.7);
+  /* Fondo oscuro semitransparente */
   backdrop-filter: blur(12px);
   /* ¡La magia! Desenfoca lo que hay detrás */
   -webkit-backdrop-filter: blur(12px);
