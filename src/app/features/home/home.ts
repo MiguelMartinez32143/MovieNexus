@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { MovieService } from '../../core/services/movie.service';
 
 @Component({
   selector: 'app-home',
@@ -6,4 +7,14 @@ import { Component } from '@angular/core';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {}
+export class Home implements OnInit {
+  private movieService = inject(MovieService);
+
+  ngOnInit(): void {
+    console.log('Inicializando: Cargando películas...');
+    this.movieService.getTrendingMovies().subscribe(data => {
+      console.log('¡Éxito! Datos recibidos de TMDB:', data.results);
+    });
+  }
+}
+
