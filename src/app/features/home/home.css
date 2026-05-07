@@ -14,8 +14,12 @@
   font-weight: 800;
   margin-bottom: var(--spacing-md);
   letter-spacing: -1px;
-  /* Gradiente en todo el título: blanco hasta la 'o', luego vira al rojo */
-  background: linear-gradient(90deg, #ffffff 38%, #cc2222 100%);
+  color: #ffffff; /* Mantiene el blanco original para "Bienvenido a" */
+}
+
+.hero-title .gradient-text {
+  /* Difuminado de derecha a izquierda: de azul a blanco */
+  background: linear-gradient(to left, var(--primary) 0%, #ffffff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -38,7 +42,7 @@
   color: white;
   font-size: 1.1rem;
   font-weight: 700;
-  border-radius: var(--radius);
+  border-radius: var(--radius-full);
   border: none;
   cursor: pointer;
   transition: var(--transition);

@@ -1,19 +1,25 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { MovieService } from '../../core/services/movie.service';
+import { Hero } from './components/hero/hero';
+import { Movie } from '../../core/models/movie.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule, Hero],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
   private movieService = inject(MovieService);
 
+  featuredMovie = signal<Movie | null>(null);
   ngOnInit(): void {
-    console.log('Inicializando: Cargando películas...');
     this.movieService.getTrendingMovies().subscribe(data => {
-      console.log('¡Éxito! Datos recibidos de TMDB:', data.results);
+      if(data.results.length > 0){
+        this.featuredMovie.set(data.results[0]);
+      }
     });
   }
 }

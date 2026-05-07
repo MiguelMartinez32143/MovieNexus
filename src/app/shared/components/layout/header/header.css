@@ -1,100 +1,98 @@
-/* header.css
-   ═══════════════════════════════════════════════════════════
-   Paso 3 — Glassmorphism en el Header
-   backdrop-filter: blur() crea el efecto de "cristal esmerilado".
-   position: sticky + top: 0 lo pega arriba de la pantalla.
-   ═══════════════════════════════════════════════════════════ */
+/* src/app/shared/components/layout/header/header.css */
 
 :host {
   display: block;
-  position: sticky;         /* Se queda pegado arriba al hacer scroll */
+  position: sticky;
   top: 0;
-  z-index: 100;             /* Siempre encima del contenido */
+  z-index: 100;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 var(--spacing-xl);
-  height: 64px;
-
-  /* ── Glassmorphism ──────────────────────────────────── */
-  background: var(--glass);              /* Fondo oscuro semitransparente */
-  backdrop-filter: blur(20px) saturate(180%);
-                                          /* ¡Magia CSS! Desenfoca lo de atrás */
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-                                          /* Compatibilidad Safari */
-  border-bottom: var(--border-glass);     /* Borde sutil translúcido */
+  padding: 0 4rem; /* Generous horizontal padding */
+  height: 70px;
+  
+  /* Glassmorphism exacto de la referencia */
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* ── Logo ─────────────────────────────────────────────── */
 .logo {
-  font-size: var(--font-size-xl);
-  font-weight: 700;
-  letter-spacing: -0.03em;
+  font-size: 1.5rem;
+  font-weight: 800;
   color: var(--text-main);
-  transition: var(--transition-fast);
+  letter-spacing: -0.5px;
+  cursor: pointer;
 }
 
 .logo span {
-  background: var(--grad-main);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  /* Manteniendo tus colores: usamos el primary/accent de tu paleta */
+  color: var(--primary);
 }
 
-.logo:hover {
-  opacity: 0.8;
-}
-
-/* ── Navegación ───────────────────────────────────────── */
 .nav-links {
   display: flex;
+  gap: 2.5rem; /* Separación amplia entre links */
   align-items: center;
-  gap: var(--spacing-sm);
 }
 
 .nav-links a {
   text-decoration: none;
   color: var(--text-secondary);
-  font-size: var(--font-size-sm);
+  font-size: 0.95rem;
   font-weight: 500;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: var(--radius-full);
-  transition: var(--transition-fast);
   position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
 }
 
-/* Micro-interacción: hover sutil con fondo */
+/* Efecto hover en el texto */
 .nav-links a:hover {
   color: var(--text-main);
-  background: var(--glass-lighter);
 }
 
-/* Enlace activo — pastilla con fondo */
+/* Subrayado animado para el hover y el estado activo */
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Estado activo: texto más brillante y subrayado fijo */
 .nav-links a.active {
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.08);
+  font-weight: 600;
 }
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0 var(--spacing-md);
-    height: 56px;
+    padding: 0 1.5rem;
+    height: 60px;
   }
 
   .nav-links {
-    gap: var(--spacing-xs);
+    gap: 1rem;
   }
 
   .nav-links a {
-    font-size: var(--font-size-xs);
-    padding: var(--spacing-xs) var(--spacing-sm);
-  }
-
-  .logo {
-    font-size: var(--font-size-lg);
+    font-size: 0.85rem;
   }
 }

@@ -1,0 +1,27 @@
+<section class="hero" [style.background-image]="'url(' + backdropUrl + ')'">
+    <!-- Overlay negro con transparencia para leer mejor el texto -->
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+
+        <div class="hero-info">
+
+            <span class="badge">Pelicula Destacada</span>
+            <h1 class="hero-title gradient-text">{{ movie.title }}</h1>
+            <p class="hero-overview">{{ movie.overview }}</p>
+
+            <div class="hero-actions">
+                <div class="hero-buttons">
+                    <button class="btn-premium">
+                        <span>Reproducir</span>
+                    </button>
+
+                    <button class="btn-outline">
+                        <span>Más Información</span>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
