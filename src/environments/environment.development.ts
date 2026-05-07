@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiKey: '13d9f450e74792c52f8228e8a87a60ec',
+  apiKey: '64cc8868a11254eb9351576f1445f66e',
   baseUrl: 'https://api.themoviedb.org/3',
-  imgPath: 'https://image.tmdb.org/t/p/w500'
+  imgPath: 'https://image.tmdb.org/t/p'
 };

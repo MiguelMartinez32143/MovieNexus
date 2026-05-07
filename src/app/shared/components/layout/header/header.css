@@ -1,73 +1,100 @@
+/* header.css
+   ═══════════════════════════════════════════════════════════
+   Paso 3 — Glassmorphism en el Header
+   backdrop-filter: blur() crea el efecto de "cristal esmerilado".
+   position: sticky + top: 0 lo pega arriba de la pantalla.
+   ═══════════════════════════════════════════════════════════ */
+
+:host {
+  display: block;
+  position: sticky;         /* Se queda pegado arriba al hacer scroll */
+  top: 0;
+  z-index: 100;             /* Siempre encima del contenido */
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding: 0 var(--spacing-xl);
+  height: 64px;
 
-  /* Glassmorphism: cristal esmerilado */
-  background: rgba(0, 0, 0, 0.7);
-  /* Fondo oscuro semitransparente */
-  backdrop-filter: blur(12px);
-  /* ¡La magia! Desenfoca lo que hay detrás */
-  -webkit-backdrop-filter: blur(12px);
-  /* Compatibilidad Safari */
-  border-bottom: var(--border-glass);
-  /* Borde sutil translúcido */
-
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  /* Siempre encima del contenido */
+  /* ── Glassmorphism ──────────────────────────────────── */
+  background: var(--glass);              /* Fondo oscuro semitransparente */
+  backdrop-filter: blur(20px) saturate(180%);
+                                          /* ¡Magia CSS! Desenfoca lo de atrás */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+                                          /* Compatibilidad Safari */
+  border-bottom: var(--border-glass);     /* Borde sutil translúcido */
 }
 
+/* ── Logo ─────────────────────────────────────────────── */
 .logo {
-  font-size: 24px;
-  font-weight: 800;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  letter-spacing: -0.03em;
   color: var(--text-main);
+  transition: var(--transition-fast);
 }
 
 .logo span {
-  color: var(--accent);
+  background: var(--grad-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+.logo:hover {
+  opacity: 0.8;
+}
+
+/* ── Navegación ───────────────────────────────────────── */
 .nav-links {
   display: flex;
-  gap: 30px;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
 .nav-links a {
   text-decoration: none;
-  color: rgba(248, 250, 252, 0.7);
-  font-size: 15px;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
   font-weight: 500;
-  transition: var(--transition);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-full);
+  transition: var(--transition-fast);
   position: relative;
-  /* Necesario para el ::after */
-  padding-bottom: 4px;
 }
 
-/* Subrayado rojo animado */
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: var(--accent);
-  /* Raya roja */
-  transform: scaleX(0);
-  /* Empieza invisible */
-  transform-origin: left;
-  transition: transform 0.3s ease;
+/* Micro-interacción: hover sutil con fondo */
+.nav-links a:hover {
+  color: var(--text-main);
+  background: var(--glass-lighter);
 }
 
-.nav-links a:hover,
+/* Enlace activo — pastilla con fondo */
 .nav-links a.active {
-  color: var(--text-main);          /* Texto blanco al activar */
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
-  transform: scaleX(1);             /* La raya roja aparece de izquierda a derecha */
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 var(--spacing-md);
+    height: 56px;
+  }
+
+  .nav-links {
+    gap: var(--spacing-xs);
+  }
+
+  .nav-links a {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .logo {
+    font-size: var(--font-size-lg);
+  }
 }
