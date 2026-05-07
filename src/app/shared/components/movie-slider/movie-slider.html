@@ -1,0 +1,14 @@
+<div class="slider-container">
+    @if (title) {
+    <h2 class="slider-title">{{ title }}</h2>
+    }
+    <div class="slider-track">
+        @for (movie of movies; track movie.id) {
+        <app-movie-card [movie]="movie" />
+        }
+
+        @empty {
+            <p>No se encontraron películas</p>
+        }
+    </div>
+</div>

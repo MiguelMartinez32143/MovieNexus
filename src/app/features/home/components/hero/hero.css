@@ -25,10 +25,9 @@
     position: relative;
     z-index: 2;
     /* Debe estar por encima del overlay */
-    padding: var(--spacing-xl) var(--spacing-md);
+    padding: var(--spacing-xl) 4%;
+    padding-bottom: var(--spacing-2xl);
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .hero-info {
@@ -65,6 +64,7 @@
     /* Limita el texto a 3 líneas y pone '...' si es más largo */
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

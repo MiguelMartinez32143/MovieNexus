@@ -54,3 +54,12 @@
   box-shadow: 0 8px 25px var(--primary-glow);
   filter: brightness(1.1);
 }
+
+/* ── Secciones de Carruseles ────────────────────────────── */
+.home-sections {
+  position: relative;
+  z-index: 3;
+  margin-top: -4rem;
+  padding-bottom: var(--spacing-xl);
+  background: var(--bg-color);
+}

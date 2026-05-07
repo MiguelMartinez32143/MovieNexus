@@ -3,3 +3,17 @@
 } @else {
   <div class="loading-hero">Cargando...</div>
 }
+
+<div class="home-sections">
+  <app-movie-slider
+    title="Tendencias de Hoy"
+    [movies]="trendingMovies()">
+  </app-movie-slider>
+
+  <app-movie-slider
+    title="Mas Populares"
+    [movies]="popularMovies()">
+  </app-movie-slider>
+
+
+</div>

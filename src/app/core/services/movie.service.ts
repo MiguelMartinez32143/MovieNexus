@@ -13,4 +13,8 @@ export class MovieService {
     return this.http.get<MovieResponse>
       (`${this.apiUrl}/trending/movie/day`);
   }
+
+  getPopularMovies(){
+    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`);
+  }
 }
