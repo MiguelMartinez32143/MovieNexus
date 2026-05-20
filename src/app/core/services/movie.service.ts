@@ -15,8 +15,13 @@ export class MovieService {
       (`${this.apiUrl}/trending/movie/day`);
   }
 
-  getPopularMovies(){
-    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`);
+  /**
+   * Obtiene las películas populares con soporte para paginación.
+   */
+  getPopularMovies(page: number = 1) {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
+      params: { page: page.toString() }
+    });
   }
 
   getMovieById(id: string | number) {
