@@ -3,21 +3,37 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Movie, MovieResponse } from '../models/movie.model';
 import { CreditsResponse } from '../models/cast.model';
+import { delay, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
   private http = inject(HttpClient);
   private apiUrl = environment.baseUrl;
 
+  private trendingCache: MovieResponse | null = null;
+  private popularCache: { [page: number]: MovieResponse } = {};
+
   getTrendingMovies() {
-    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`);
+    if (this.trendingCache) {
+      return of(this.trendingCache);
+    }
+    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`).pipe(
+      tap(data => this.trendingCache = data),
+      delay(500)
+    );
   }
 
 
   getPopularMovies(page: number = 1) {
+    if (this.popularCache[page]) {
+      return of(this.popularCache[page]);
+    }
     return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
       params: { page: page.toString() }
-    });
+    }).pipe(
+      tap(data => this.popularCache[page] = data),
+      delay(500)
+    );
   }
 
   getMovieById(id: string | number) {

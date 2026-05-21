@@ -8,36 +8,47 @@
 
 :root {
   /* ── Colores Core ─────────────────────────────────────── */
-  --bg-color: #000000;               /* Fondo principal — negro puro estilo Apple */
-  --bg-accent: #0a0a0a;              /* Fondo secundario — sutil diferencia */
-  --bg-surface: #111111;             /* Superficies elevadas (cards, modals) */
-  --primary: #2997ff;                /* Azul Apple — acento principal */
-  --primary-glow: rgba(41, 151, 255, 0.25); /* Halo azul para sombras */
-  --accent: #64d2ff;                 /* Azul claro — acento secundario */
-  --text-main: #f5f5f7;             /* Texto principal — blanco suave Apple */
-  --text-secondary: rgba(245, 245, 247, 0.6); /* Texto secundario */
-  --text-tertiary: rgba(245, 245, 247, 0.35); /* Texto terciario */
+  --bg-color: #000000;
+  /* Fondo principal — negro puro estilo Apple */
+  --bg-accent: #0a0a0a;
+  /* Fondo secundario — sutil diferencia */
+  --bg-surface: #111111;
+  /* Superficies elevadas (cards, modals) */
+  --primary: #2997ff;
+  /* Azul Apple — acento principal */
+  --primary-glow: rgba(41, 151, 255, 0.25);
+  /* Halo azul para sombras */
+  --accent: #64d2ff;
+  /* Azul claro — acento secundario */
+  --text-main: #f5f5f7;
+  /* Texto principal — blanco suave Apple */
+  --text-secondary: rgba(245, 245, 247, 0.6);
+  /* Texto secundario */
+  --text-tertiary: rgba(245, 245, 247, 0.35);
+  /* Texto terciario */
 
   /* ── Gradientes Premium ───────────────────────────────── */
   --grad-main: linear-gradient(135deg, var(--primary), var(--accent));
-  --grad-surface: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.06) 0%,
-    transparent 100%
-  );
-  --grad-text: linear-gradient(
-    90deg,
-    var(--text-main) 0%,
-    var(--accent) 100%
-  );
+  --grad-surface: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 100%);
+  --grad-text: linear-gradient(90deg,
+      var(--text-main) 0%,
+      var(--accent) 100%);
 
   /* ── Espaciado (8-point grid) ─────────────────────────── */
-  --spacing-xs: 0.25rem;  /*  4px */
-  --spacing-sm: 0.5rem;   /*  8px */
-  --spacing-md: 1rem;     /* 16px */
-  --spacing-lg: 2rem;     /* 32px */
-  --spacing-xl: 4rem;     /* 64px */
-  --spacing-2xl: 6rem;    /* 96px */
+  --spacing-xs: 0.25rem;
+  /*  4px */
+  --spacing-sm: 0.5rem;
+  /*  8px */
+  --spacing-md: 1rem;
+  /* 16px */
+  --spacing-lg: 2rem;
+  /* 32px */
+  --spacing-xl: 4rem;
+  /* 64px */
+  --spacing-2xl: 6rem;
+  /* 96px */
 
   /* ── Bordes redondeados ───────────────────────────────── */
   --radius-sm: 8px;
@@ -62,16 +73,25 @@
 
   /* ── Tipografía ───────────────────────────────────────── */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 Roboto, Helvetica, Arial, sans-serif;
-  --font-size-xs: 0.75rem;   /* 12px */
-  --font-size-sm: 0.875rem;  /* 14px */
-  --font-size-base: 1rem;    /* 16px */
-  --font-size-lg: 1.25rem;   /* 20px */
-  --font-size-xl: 1.5rem;    /* 24px */
-  --font-size-2xl: 2rem;     /* 32px */
-  --font-size-3xl: 3rem;     /* 48px */
-  --font-size-4xl: 4rem;     /* 64px */
-  --font-size-hero: clamp(2.5rem, 6vw, 5rem); /* Responsivo */
+    Roboto, Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.75rem;
+  /* 12px */
+  --font-size-sm: 0.875rem;
+  /* 14px */
+  --font-size-base: 1rem;
+  /* 16px */
+  --font-size-lg: 1.25rem;
+  /* 20px */
+  --font-size-xl: 1.5rem;
+  /* 24px */
+  --font-size-2xl: 2rem;
+  /* 32px */
+  --font-size-3xl: 3rem;
+  /* 48px */
+  --font-size-4xl: 4rem;
+  /* 64px */
+  --font-size-hero: clamp(2.5rem, 6vw, 5rem);
+  /* Responsivo */
 
   /* ── Contenedor ───────────────────────────────────────── */
   --max-width: 1200px;
@@ -149,7 +169,8 @@ a:hover {
   font-weight: 600;
   letter-spacing: -0.01em;
   border: none;
-  border-radius: var(--radius-full); /* Pastilla estilo Apple */
+  border-radius: var(--radius-full);
+  /* Pastilla estilo Apple */
   cursor: pointer;
   transition: var(--transition);
   box-shadow: 0 4px 20px var(--primary-glow);
@@ -162,11 +183,9 @@ a:hover {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.15) 0%,
-    transparent 50%
-  );
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 50%);
   border-radius: inherit;
   opacity: 0;
   transition: opacity 0.3s var(--ease-out);
@@ -175,7 +194,7 @@ a:hover {
 .btn-premium:hover {
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 8px 40px var(--primary-glow),
-              0 0 60px rgba(41, 151, 255, 0.15);
+    0 0 60px rgba(41, 151, 255, 0.15);
   filter: brightness(1.08);
 }
 
@@ -250,6 +269,7 @@ a:hover {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -257,13 +277,23 @@ a:hover {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
+  0% {
+    background-position: -200% center;
+  }
+
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* ── Scrollbar personalizado ────────────────────────────── */
@@ -293,6 +323,7 @@ a:hover {
   0% {
     background-position: -1000px 0;
   }
+
   100% {
     background-position: 1000px 0;
   }
@@ -301,13 +332,11 @@ a:hover {
 /* Clase de utilidad reutilizable */
 .skeleton-base {
   background: #2a2a2a;
-  background-image: linear-gradient(
-    to right,
-    #2a2a2a 0%,
-    #3a3a3a 20%,
-    #2a2a2a 40%,
-    #2a2a2a 100%
-  );
+  background-image: linear-gradient(to right,
+      #2a2a2a 0%,
+      #3a3a3a 20%,
+      #2a2a2a 40%,
+      #2a2a2a 100%);
   background-repeat: no-repeat;
   background-size: 1000px 100%;
   animation: shimmer 2s infinite linear forwards;
@@ -320,10 +349,10 @@ a:hover {
 /* Hacemos que todas las transiciones sean un poco más lentas y fluidas para apreciarlas */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.4s;
+  animation-duration: 2s;
 }
 
 ::view-transition-group(*) {
-  animation-duration: 0.4s;
+  animation-duration: 2s;
   animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
