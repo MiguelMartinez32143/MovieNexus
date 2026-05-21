@@ -1,7 +1,7 @@
 <div class="movie-card" [routerLink]="['/movie', movie.id]">
     <div class="card-container">
         <!-- 1. LA IMAGEN (La protagonista) -->
-        <img [src]="posterUrl" [alt]="movie.title" class="card-image" loading="lazy">
+        <img [src]="posterUrl" [alt]="movie.title" class="card-image" loading="lazy" [style.view-transition-name]="'movie-poster-' + movie.id">
     </div>
 
     <!-- 2. La Franja de Información (Overlay) -->

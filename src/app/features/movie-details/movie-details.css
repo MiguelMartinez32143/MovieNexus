@@ -37,6 +37,45 @@
   margin: 0 auto;
 }
 
+.main-info {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+}
+
+.poster-img {
+  width: 250px;
+  flex-shrink: 0;
+  border-radius: 16px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background-color: #1a1a1a;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.poster-img:hover {
+  transform: scale(1.02);
+}
+
+.details-text {
+  flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+  .main-info {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .poster-img {
+    width: 200px;
+  }
+}
+
 .movie-title {
   font-size: 3rem;
   font-weight: 700;
