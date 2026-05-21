@@ -12,7 +12,7 @@ export class MovieService {
 
   getTrendingMovies() {
     return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`).pipe(
-      delay(2000)
+      delay(1000)
     );
   }
 
@@ -21,7 +21,7 @@ export class MovieService {
     return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
       params: { page: page.toString() }
     }).pipe(
-      delay(2000)
+      delay(1000)
     );
   }
 
