@@ -23,12 +23,12 @@ export class Home implements OnInit, AfterViewInit {
   // 2. Marcamos un elemento del HTML para observarlo
   @ViewChild('infiniteAnchor') infiniteAnchor!: ElementRef;
 
-  featuredMovie = signal<Movie | null>(null);
-  trendingMovies = signal<Movie[]>([]);
-  popularMovies = signal<Movie[]>([]);
+  featuredMovie = signal<Movie | null>(this.movieService.trendingCache?.results[0] || null);
+  trendingMovies = signal<Movie[]>(this.movieService.trendingCache?.results || []);
+  popularMovies = signal<Movie[]>(this.movieService.popularCache[1]?.results || []);
 
-  catalogMovies = signal<Movie[]>([]);
-  currentPage = signal(1);
+  catalogMovies = signal<Movie[]>(this.movieService.catalogMoviesCache || []);
+  currentPage = signal(this.movieService.currentPageCache || 1);
   isFetchingNextPage = signal(false);
 
   ngOnInit(): void {
@@ -71,8 +71,13 @@ export class Home implements OnInit, AfterViewInit {
     this.movieService.getPopularMovies(this.currentPage()).subscribe({
       next: (data) => {
         // 5. Inmutabilidad: Concatenamos los resultados usando el operador spread [...]
-        this.catalogMovies.set([...this.catalogMovies(), ...data.results]);
+        const updatedMovies = [...this.catalogMovies(), ...data.results];
+        this.catalogMovies.set(updatedMovies);
+        this.movieService.catalogMoviesCache = updatedMovies;
+
         this.currentPage.update(p => p + 1);
+        this.movieService.currentPageCache = this.currentPage();
+
         this.isFetchingNextPage.set(false);
       }
     });

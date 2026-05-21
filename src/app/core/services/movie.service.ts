@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Movie, MovieResponse } from '../models/movie.model';
 import { CreditsResponse } from '../models/cast.model';
@@ -9,30 +10,82 @@ import { delay, of, tap } from 'rxjs';
 export class MovieService {
   private http = inject(HttpClient);
   private apiUrl = environment.baseUrl;
+  private platformId = inject(PLATFORM_ID);
 
-  private trendingCache: MovieResponse | null = null;
-  private popularCache: { [page: number]: MovieResponse } = {};
+  public get trendingCache(): MovieResponse | null {
+    if (!isPlatformBrowser(this.platformId)) return null;
+    const cached = sessionStorage.getItem('trendingCache');
+    return cached ? JSON.parse(cached) : null;
+  }
+  public set trendingCache(value: MovieResponse | null) {
+    if (isPlatformBrowser(this.platformId)) {
+      if (value) {
+        sessionStorage.setItem('trendingCache', JSON.stringify(value));
+      } else {
+        sessionStorage.removeItem('trendingCache');
+      }
+    }
+  }
+
+  public get popularCache(): { [page: number]: MovieResponse } {
+    if (!isPlatformBrowser(this.platformId)) return {};
+    const cached = sessionStorage.getItem('popularCache');
+    return cached ? JSON.parse(cached) : {};
+  }
+  public set popularCache(value: { [page: number]: MovieResponse }) {
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('popularCache', JSON.stringify(value));
+    }
+  }
+
+  public get catalogMoviesCache(): Movie[] {
+    if (!isPlatformBrowser(this.platformId)) return [];
+    const cached = sessionStorage.getItem('catalogMoviesCache');
+    return cached ? JSON.parse(cached) : [];
+  }
+  public set catalogMoviesCache(value: Movie[]) {
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('catalogMoviesCache', JSON.stringify(value));
+    }
+  }
+
+  public get currentPageCache(): number {
+    if (!isPlatformBrowser(this.platformId)) return 1;
+    const cached = sessionStorage.getItem('currentPageCache');
+    return cached ? parseInt(cached, 10) : 1;
+  }
+  public set currentPageCache(value: number) {
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('currentPageCache', value.toString());
+    }
+  }
 
   getTrendingMovies() {
-    if (this.trendingCache) {
-      return of(this.trendingCache);
+    const cached = this.trendingCache;
+    if (cached) {
+      return of(cached);
     }
     return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`).pipe(
       tap(data => this.trendingCache = data),
-      delay(500)
+      delay(200)
     );
   }
 
 
   getPopularMovies(page: number = 1) {
-    if (this.popularCache[page]) {
-      return of(this.popularCache[page]);
+    const cached = this.popularCache[page];
+    if (cached) {
+      return of(cached);
     }
     return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
       params: { page: page.toString() }
     }).pipe(
-      tap(data => this.popularCache[page] = data),
-      delay(500)
+      tap(data => {
+        const cache = this.popularCache;
+        cache[page] = data;
+        this.popularCache = cache;
+      }),
+      delay(200)
     );
   }
 
