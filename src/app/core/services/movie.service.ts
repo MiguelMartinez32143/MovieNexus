@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Movie, MovieResponse } from '../models/movie.model';
 import { CreditsResponse } from '../models/cast.model';
+import { delay } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
@@ -10,15 +11,18 @@ export class MovieService {
   private apiUrl = environment.baseUrl;
 
   getTrendingMovies() {
-
-    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`);
+    return this.http.get<MovieResponse>(`${this.apiUrl}/trending/movie/day`).pipe(
+      delay(2000)
+    );
   }
 
 
   getPopularMovies(page: number = 1) {
     return this.http.get<MovieResponse>(`${this.apiUrl}/movie/popular`, {
       params: { page: page.toString() }
-    });
+    }).pipe(
+      delay(2000)
+    );
   }
 
   getMovieById(id: string | number) {

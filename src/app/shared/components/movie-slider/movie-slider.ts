@@ -2,11 +2,12 @@ import { Component, Input } from '@angular/core';
 import { Movie } from '../../../core/models/movie.model';
 import { MovieCard } from '../movie-card/movie-card';
 import { CommonModule } from '@angular/common';
+import { SkeletonCard } from '../skeleton-card/skeleton-card';
 
 @Component({
   selector: 'app-movie-slider',
   standalone: true,
-  imports: [CommonModule, MovieCard],
+  imports: [CommonModule, MovieCard, SkeletonCard],
   templateUrl: './movie-slider.html',
   styleUrl: './movie-slider.css',
 })
