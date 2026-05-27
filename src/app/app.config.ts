@@ -2,6 +2,7 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter, withComponentInputBinding, withViewTransitions, withInMemoryScrolling } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { apiInterceptor } from './core/interceptors/api.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -14,7 +15,7 @@ export const appConfig: ApplicationConfig = {
     ),
     provideHttpClient(
       withFetch(), // Habilita el uso de la API Fetch moderna (más rápida y compatible con SSR)
-      withInterceptors([apiInterceptor]) // Registra nuestro interceptor (Paso 3)
+      withInterceptors([apiInterceptor, errorInterceptor]) // Registra nuestros interceptores (Paso 3)
     )
   ]
 };

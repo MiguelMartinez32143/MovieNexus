@@ -70,7 +70,12 @@
           }
         </section>
 
-        <button class="back-button" onclick="history.back()">← Volver</button>
+        <div class="actions-row">
+          <button class="back-button" onclick="history.back()">← Volver</button>
+          <button class="favorite-btn" (click)="toggleFavorite(data.details)" [class.is-favorite]="isFavorite(data.details.id)">
+            {{ isFavorite(data.details.id) ? '❤️ En Favoritos' : '🤍 Añadir a Favoritos' }}
+          </button>
+        </div>
     </div>
   </div>
 } @else {

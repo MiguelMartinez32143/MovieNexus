@@ -1,0 +1,53 @@
+.not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 160px);
+  padding: 2rem;
+  background-color: #030712; /* Fondo súper oscuro */
+  position: relative;
+  overflow: hidden;
+}
+
+.not-found-card {
+  background: rgba(15, 23, 42, 0.45); /* Glassmorphism azul oscuro translúcido */
+  border: 1px dashed rgba(255, 255, 255, 0.15); /* Borde punteado/sutil */
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px);
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: center;
+}
+
+/* Re-estilizar el componente interno para el 404 */
+::ng-deep .not-found-card .empty-state-container {
+  padding: 0 !important;
+}
+
+::ng-deep .not-found-card .empty-state-title {
+  font-size: 1.75rem !important;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin-top: 1rem;
+}
+
+::ng-deep .not-found-card .empty-state-message {
+  color: #9ca3af;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 2rem !important;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

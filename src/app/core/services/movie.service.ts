@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment';
 import { Movie, MovieResponse } from '../models/movie.model';
@@ -105,5 +105,45 @@ export class MovieService {
     return this.http.get<{ results: Array<{ key: string; site: string; type: string; name: string }> }>(
       `${this.apiUrl}/movie/${id}/videos`
     );
+  }
+
+  // --- SISTEMA DE FAVORITOS ---
+  private favoritesSignal = signal<Movie[]>(this.loadFavoritesFromStorage());
+
+  private loadFavoritesFromStorage(): Movie[] {
+    if (!isPlatformBrowser(this.platformId)) return [];
+    try {
+      const stored = localStorage.getItem('favorites');
+      return stored ? JSON.parse(stored) : [];
+    } catch (e) {
+      console.error('Error al cargar favoritos de localStorage', e);
+      return [];
+    }
+  }
+
+  get favoriteMovies() {
+    return this.favoritesSignal.asReadonly();
+  }
+
+  toggleFavorite(movie: Movie) {
+    if (!isPlatformBrowser(this.platformId)) return;
+    const current = this.favoritesSignal();
+    const exists = current.some(m => m.id === movie.id);
+    let updated: Movie[];
+    if (exists) {
+      updated = current.filter(m => m.id !== movie.id);
+    } else {
+      updated = [...current, movie];
+    }
+    this.favoritesSignal.set(updated);
+    try {
+      localStorage.setItem('favorites', JSON.stringify(updated));
+    } catch (e) {
+      console.error('Error al guardar favoritos en localStorage', e);
+    }
+  }
+
+  isFavorite(movieId: number | string): boolean {
+    return this.favoritesSignal().some(m => m.id.toString() === movieId.toString());
   }
 }

@@ -34,4 +34,12 @@ export class MovieDetails implements OnInit {
   getBackdropUrl(path: string | null | undefined): string {
     return path ? `https://image.tmdb.org/t/p/original${path}` : '';
   }
+
+  isFavorite(id: number | string): boolean {
+    return this.movieService.isFavorite(id);
+  }
+
+  toggleFavorite(movie: Movie): void {
+    this.movieService.toggleFavorite(movie);
+  }
 }
