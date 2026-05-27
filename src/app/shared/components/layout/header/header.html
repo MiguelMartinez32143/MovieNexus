@@ -1,9 +1,50 @@
 <header class="navbar">
   <div class="logo" routerLink="/" style="cursor: pointer;">Movie<span>Nexus</span></div>
+  
   <nav class="nav-links">
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
-    <a href="#">Películas</a>
-    <a href="#">Buscar</a>
     <a routerLink="/favorites" routerLinkActive="active">Favoritos</a>
   </nav>
+
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <input 
+        type="text" 
+        [value]="searchQuery()" 
+        (input)="onSearchInput($event)"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        placeholder="Buscar películas..." 
+        class="search-input"
+      >
+      @if (isLoading()) {
+        <div class="search-spinner"></div>
+      } @else if (searchQuery()) {
+        <button class="clear-btn" (click)="clearSearch()">×</button>
+      }
+    </div>
+
+    <!-- Dropdown de resultados interactivos -->
+    @if (showDropdown() && searchResults().length > 0) {
+      <div class="search-dropdown">
+        @for (movie of searchResults(); track movie.id) {
+          <div class="search-item" (click)="selectMovie(movie.id)">
+            <img 
+              [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w92' + movie.poster_path : 'assets/no-poster.png'" 
+              [alt]="movie.title" 
+              class="search-item-poster"
+              onerror="this.src='https://placehold.co/45x68/111/fff?text=🍿'"
+            >
+            <div class="search-item-info">
+              <span class="search-item-title">{{ movie.title }}</span>
+              <div class="search-item-meta">
+                <span class="search-item-year">{{ movie.release_date ? (movie.release_date | slice:0:4) : 'S/F' }}</span>
+                <span class="search-item-rating">⭐ {{ movie.vote_average | number:'1.1-1' }}</span>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
 </header>

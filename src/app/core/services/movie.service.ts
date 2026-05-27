@@ -107,6 +107,12 @@ export class MovieService {
     );
   }
 
+  searchMovies(query: string) {
+    return this.http.get<MovieResponse>(`${this.apiUrl}/search/movie`, {
+      params: { query }
+    });
+  }
+
   // --- SISTEMA DE FAVORITOS ---
   private favoritesSignal = signal<Movie[]>(this.loadFavoritesFromStorage());
 
