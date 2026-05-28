@@ -1,9 +1,9 @@
 {
-    "name": "MovieNexus",
-    "short_name": "MovieNexus",
+    "name": "Lumiere",
+    "short_name": "Lumiere",
     "description": "Descubre, busca y guarda tus películas favoritas",
-    "theme_color": "#111827",
-    "background_color": "#0f172a",
+    "theme_color": "#ffffff",
+    "background_color": "#050505",
     "display": "standalone",
     "orientation": "portrait-primary",
     "scope": "/",

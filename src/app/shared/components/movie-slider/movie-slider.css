@@ -1,46 +1,50 @@
+/* src/app/shared/components/movie-slider/movie-slider.css */
+
 /* ── Slider Container ───────────────────────────────────── */
 .slider-container {
-    padding: var(--spacing-lg) 0;
-    padding-left: 4%;
-    padding-right: 0;
-    overflow: hidden;
-    margin-bottom: var(--spacing-md);
+  padding: var(--spacing-lg) 0;
+  padding-left: 4.5%;
+  padding-right: 0;
+  overflow: visible; /* Crucial para evitar que se corten los halos de luz y la escala en hover */
+  margin-bottom: var(--spacing-sm);
 }
 
-/* ── Título Premium con gradiente y acento ──────────────── */
+/* ── Título Premium Estilo Apple ───────────────────────── */
 .slider-title {
-    font-size: var(--font-size-xl);
-    font-weight: 700;
-    margin-bottom: var(--spacing-lg);
-    color: var(--text-main);
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-/* Barra de acento antes del título */
+/* Esfera/barra de acento de cristal Apple */
 .slider-title::before {
-    content: '';
-    display: inline-block;
-    width: 4px;
-    height: 1.2em;
-    background: var(--grad-main);
-    border-radius: var(--radius-full);
-    flex-shrink: 0;
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 1.15em;
+  background: var(--grad-main);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+  box-shadow: 0 0 10px rgba(0, 113, 227, 0.4);
 }
 
 /* ── Track de películas ─────────────────────────────────── */
 .slider-track {
-    display: flex;
-    gap: 1.25rem;
-    padding-right: 4%;
-    padding-bottom: var(--spacing-md);
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
+  display: flex;
+  gap: 1.5rem;
+  padding-right: 4.5%;
+  padding-top: 12px; /* Margen superior para el translateY del hover */
+  padding-bottom: 24px; /* Margen inferior para las sombras del hover */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
 }
 
 .slider-track::-webkit-scrollbar {
-    display: none;
+  display: none;
 }

@@ -4,21 +4,22 @@
   align-items: center;
   min-height: calc(100vh - 160px);
   padding: 2rem;
-  background-color: #030712; /* Fondo súper oscuro */
+  background-color: transparent; /* Permite ver las luces de fondo globales */
   position: relative;
   overflow: hidden;
 }
 
 .not-found-card {
-  background: rgba(15, 23, 42, 0.45); /* Glassmorphism azul oscuro translúcido */
-  border: 1px dashed rgba(255, 255, 255, 0.15); /* Borde punteado/sutil */
-  border-radius: 12px;
-  padding: 3rem 2rem;
+  background: var(--glass-bg); /* Glassmorphism macOS esmerilado */
+  border: var(--glass-border);
+  border-radius: var(--radius-xl);
+  padding: 3.5rem 2.5rem;
   max-width: 500px;
   width: 100%;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(16px);
-  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: var(--glass-shadow);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  animation: slideUp 0.8s var(--ease-apple);
   text-align: center;
 }
 

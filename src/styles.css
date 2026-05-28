@@ -7,34 +7,47 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  /* ── Colores Core ─────────────────────────────────────── */
+  /* ── Colores Core — Opción 1: Monocromática de Lujo (Platinum & Slate) ── */
   --bg-color: #000000;
-  /* Fondo principal — negro puro estilo Apple */
-  --bg-accent: #0a0a0a;
-  /* Fondo secundario — sutil diferencia */
-  --bg-surface: #111111;
-  /* Superficies elevadas (cards, modals) */
-  --primary: #2997ff;
-  /* Azul Apple — acento principal */
-  --primary-glow: rgba(41, 151, 255, 0.25);
-  /* Halo azul para sombras */
-  --accent: #64d2ff;
-  /* Azul claro — acento secundario */
+  /* Fondo principal — negro OLED absoluto estilo Apple */
+  --bg-accent: #050505;
+  /* Fondo secundario — Gris pizarra ultra oscuro */
+  --bg-surface: #0f0f12;
+  /* Superficies elevadas de respaldo slate */
+  --primary: #ffffff;
+  /* Blanco Platino de alta pureza */
+  --primary-glow: rgba(255, 255, 255, 0.16);
+  /* Halo de brillo blanco platino */
+  --accent: #e5e5ea;
+  /* Plata satinado de acento */
+  --accent-purple: #8e8e93;
+  /* Gris Pizarra de Acero (Slate Steel) para degradados */
+  --accent-purple-glow: rgba(142, 142, 147, 0.12);
   --text-main: #f5f5f7;
   /* Texto principal — blanco suave Apple */
-  --text-secondary: rgba(245, 245, 247, 0.6);
+  --text-secondary: rgba(245, 245, 247, 0.65);
   /* Texto secundario */
-  --text-tertiary: rgba(245, 245, 247, 0.35);
+  --text-tertiary: rgba(245, 245, 247, 0.4);
   /* Texto terciario */
 
-  /* ── Gradientes Premium ───────────────────────────────── */
-  --grad-main: linear-gradient(135deg, var(--primary), var(--accent));
+  /* ── Glassmorphic Tokens (macOS Grayscale Dark Material) ── */
+  --glass-bg: rgba(18, 18, 20, 0.65);
+  --glass-bg-hover: rgba(30, 30, 32, 0.8);
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+  --glass-border-light: 1px solid rgba(255, 255, 255, 0.16);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  --glass-blur: blur(24px) saturate(190%);
+  --glass-blur-heavy: blur(40px) saturate(210%);
+
+  /* ── Gradientes Premium Platinum & Slate ───────────────── */
+  --grad-main: linear-gradient(135deg, var(--primary), var(--accent-purple));
+  --grad-apple-gold: linear-gradient(135deg, #ffffff, #8e8e93); /* Oro monocromado */
   --grad-surface: linear-gradient(180deg,
-      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.04) 0%,
       transparent 100%);
-  --grad-text: linear-gradient(90deg,
-      var(--text-main) 0%,
-      var(--accent) 100%);
+  --grad-text: linear-gradient(135deg,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.75) 100%);
 
   /* ── Espaciado (8-point grid) ─────────────────────────── */
   --spacing-xs: 0.25rem;
@@ -52,24 +65,21 @@
 
   /* ── Bordes redondeados ───────────────────────────────── */
   --radius-sm: 8px;
-  --radius: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
+  --radius: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
   --radius-full: 9999px;
 
-  /* ── Profundidad / Glass ──────────────────────────────── */
-  --glass: rgba(18, 18, 18, 0.72);
-  --glass-lighter: rgba(255, 255, 255, 0.04);
-  --border-glass: 1px solid rgba(255, 255, 255, 0.08);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+  /* ── Profundidad / Sombras ────────────────────────────── */
+  --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
   --shadow-glow: 0 0 40px var(--primary-glow);
 
-  /* ── Transiciones ─────────────────────────────────────── */
-  --ease-out: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --transition: all 0.3s var(--ease-out);
-  --transition-fast: all 0.15s var(--ease-out);
+  /* ── Transiciones (Curva Apple) ───────────────────────── */
+  --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.5s var(--ease-apple);
+  --transition-fast: all 0.25s var(--ease-apple);
 
   /* ── Tipografía ───────────────────────────────────────── */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -80,21 +90,21 @@
   /* 14px */
   --font-size-base: 1rem;
   /* 16px */
-  --font-size-lg: 1.25rem;
-  /* 20px */
-  --font-size-xl: 1.5rem;
-  /* 24px */
-  --font-size-2xl: 2rem;
-  /* 32px */
-  --font-size-3xl: 3rem;
-  /* 48px */
-  --font-size-4xl: 4rem;
-  /* 64px */
-  --font-size-hero: clamp(2.5rem, 6vw, 5rem);
+  --font-size-lg: 1.125rem;
+  /* 18px */
+  --font-size-xl: 1.375rem;
+  /* 22px */
+  --font-size-2xl: 1.75rem;
+  /* 28px */
+  --font-size-3xl: 2.5rem;
+  /* 40px */
+  --font-size-4xl: 3.5rem;
+  /* 56px */
+  --font-size-hero: clamp(2.5rem, 7vw, 5.5rem);
   /* Responsivo */
 
   /* ── Contenedor ───────────────────────────────────────── */
-  --max-width: 1200px;
+  --max-width: 1300px;
 }
 
 /* ── Reset Global ───────────────────────────────────────── */
@@ -124,6 +134,46 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Ambient Glows (Apple Mesh Gradient) ────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  top: -15%;
+  left: -10%;
+  width: 55vw;
+  height: 55vw;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.045) 0%, rgba(255, 255, 255, 0.01) 40%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(80px);
+  animation: pulseGlowPlatinum 22s infinite alternate ease-in-out;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  bottom: -15%;
+  right: -10%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(142, 142, 147, 0.055) 0%, rgba(142, 142, 147, 0.01) 45%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+  filter: blur(90px);
+  animation: pulseGlowSteel 28s infinite alternate ease-in-out;
+}
+
+@keyframes pulseGlowPlatinum {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(12%, 18%) scale(1.25); }
+}
+
+@keyframes pulseGlowSteel {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-15%, -12%) scale(1.15); }
 }
 
 /* ── Links globales ─────────────────────────────────────── */

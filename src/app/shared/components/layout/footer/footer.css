@@ -1,8 +1,11 @@
+/* src/app/shared/components/layout/footer/footer.css */
 .footer {
   text-align: center;
-  padding: 30px;
-  margin-top: 40px; /* Separar más hacia abajo */
-  font-size: 13px;
-  color: rgba(248, 250, 252, 0.5);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px 20px;
+  margin-top: 80px;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  letter-spacing: 0.02em;
+  font-weight: 400;
 }

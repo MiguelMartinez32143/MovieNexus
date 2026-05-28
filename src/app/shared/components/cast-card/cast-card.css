@@ -1,46 +1,60 @@
+/* src/app/shared/components/cast-card/cast-card.css */
 .cast-card {
-  width: 140px;
+  width: 130px;
   flex: 0 0 auto;
-  border-radius: 8px;
+  border-radius: var(--radius);
   overflow: hidden;
-  background-color: #1a1a1a;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-  transition: transform 0.2s;
+  background-color: rgba(255, 255, 255, 0.02);
+  border: var(--glass-border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease-apple), border-color 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
 }
 
 .cast-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
 }
 
 .profile-container {
   aspect-ratio: 2 / 3;
   width: 100%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
 .profile-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s var(--ease-apple);
+}
+
+.cast-card:hover .profile-image {
+  transform: scale(1.04);
 }
 
 .actor-info {
-  padding: 0.8rem;
+  padding: 0.75rem 0.6rem;
+  text-align: center;
 }
 
 .actor-name {
-  font-size: 0.9rem;
-  font-weight: bold;
-  margin: 0 0 0.3rem 0;
-  color: #fff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0 0 0.2rem 0;
+  color: var(--text-main);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .actor-character {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   margin: 0;
-  color: #aaa;
+  color: var(--text-tertiary);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

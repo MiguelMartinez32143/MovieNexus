@@ -5,34 +5,48 @@
   position: sticky;
   top: 0;
   z-index: 100;
+  width: 100%;
 }
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 4rem; /* Generous horizontal padding */
-  height: 70px;
-  position: relative;
+  padding: 0 2rem;
+  height: 64px;
+  margin: 1.2rem auto;
+  width: 92%;
+  max-width: var(--max-width);
   
-  /* Glassmorphism exacto de la referencia */
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  /* macOS Floating Glass Dock */
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  border-radius: var(--radius-full);
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition);
+  position: relative;
 }
 
 .logo {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 800;
-  color: var(--text-main, #ffffff);
-  letter-spacing: -0.5px;
+  color: var(--text-main);
+  letter-spacing: -0.75px;
   cursor: pointer;
   user-select: none;
+  transition: var(--transition-fast);
 }
 
 .logo span {
-  color: var(--primary, #0088cc); /* Nexus en color azul primary */
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(0, 113, 227, 0.4);
+}
+
+.logo:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
 }
 
 /* Centrado absoluto de los enlaces de navegación */
@@ -41,37 +55,39 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 2.5rem; /* Separación amplia entre links */
+  gap: 2.2rem;
   align-items: center;
 }
 
 .nav-links a {
   text-decoration: none;
-  color: var(--text-secondary, #b3b3b3);
-  font-size: 0.95rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
   font-weight: 500;
+  letter-spacing: -0.01em;
   position: relative;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
+  padding: 0.4rem 0;
+  transition: var(--transition-fast);
 }
 
-/* Efecto hover en el texto */
 .nav-links a:hover {
-  color: var(--text-main, #ffffff);
+  color: var(--text-main);
 }
 
-/* Subrayado animado para el hover y el estado activo */
+/* Píldora de active Apple */
 .nav-links a::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   width: 100%;
-  height: 2px;
-  background-color: var(--primary, #0088cc);
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 8px var(--primary-glow);
   transform: scaleX(0);
   transform-origin: right;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s var(--ease-apple);
 }
 
 .nav-links a:hover::after,
@@ -80,45 +96,50 @@
   transform-origin: left;
 }
 
-/* Estado activo: texto más brillante y subrayado fijo */
 .nav-links a.active {
-  color: var(--text-main, #ffffff);
+  color: var(--text-main);
   font-weight: 600;
 }
 
-/* ── BARRA DE BÚSQUEDA INTERACTIVA ─────────────────────── */
+/* ── BARRA DE BÚSQUEDA INTERACTIVA (Spotlight Style) ─────── */
 .search-container {
   position: relative;
-  width: 280px;
+  width: 240px;
+  transition: var(--transition);
+}
+
+.search-container:focus-within {
+  width: 290px;
 }
 
 .search-input-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.6rem 1.2rem;
-  padding-right: 2.5rem; /* Espacio para el botón de limpiar o spinner */
-  border-radius: 50px; /* Diseño tipo píldora de la referencia */
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-main, #ffffff);
-  font-size: 0.9rem;
+  padding: 0.55rem 1.2rem;
+  padding-right: 2.5rem;
+  border-radius: var(--radius-full);
+  border: var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
+  font-size: 0.85rem;
   outline: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
 }
 
 .search-input:focus {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: var(--primary, #0088cc);
-  box-shadow: 0 0 10px rgba(0, 136, 204, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04);
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-tertiary);
 }
 
 .clear-btn {
@@ -126,27 +147,28 @@
   right: 12px;
   background: none;
   border: none;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-size: 1.1rem;
   cursor: pointer;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: color 0.2s ease;
+  transition: var(--transition-fast);
 }
 
 .clear-btn:hover {
-  color: var(--text-main, #ffffff);
+  color: var(--text-main);
+  transform: scale(1.1);
 }
 
 .search-spinner {
   position: absolute;
   right: 14px;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border: 2px solid rgba(255, 255, 255, 0.1);
-  border-top-color: var(--primary, #0088cc);
+  border-top-color: var(--primary);
   border-radius: 50%;
   animation: search-spin 0.6s linear infinite;
 }
@@ -155,40 +177,42 @@
   to { transform: rotate(360deg); }
 }
 
-/* ── DROPDOWN DE RESULTADOS FLOTANTES ─────────────────── */
+/* ── DROPDOWN DE RESULTADOS FLOTANTES (Spotlight Dropdown) ─ */
 .search-dropdown {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 14px);
   right: 0;
-  width: 320px;
-  background: rgba(15, 15, 15, 0.95);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
+  width: 360px;
+  
+  /* macOS Spotlight Dropdown style */
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: var(--glass-blur-heavy);
+  -webkit-backdrop-filter: var(--glass-blur-heavy);
+  border: var(--glass-border-light);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: var(--glass-shadow);
   z-index: 1000;
-  animation: slide-down 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: spotlight-slide 0.4s var(--ease-apple) forwards;
 }
 
-@keyframes slide-down {
+@keyframes spotlight-slide {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .search-item {
   display: flex;
-  gap: 12px;
-  padding: 10px 14px;
+  gap: 14px;
+  padding: 11px 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: var(--transition-fast);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
@@ -197,15 +221,15 @@
 }
 
 .search-item:hover {
-  background-color: rgba(255, 255, 255, 0.06);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .search-item-poster {
-  width: 42px;
-  height: 62px;
+  width: 38px;
+  height: 56px;
   object-fit: cover;
-  border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
 }
 
 .search-item-info {
@@ -213,16 +237,17 @@
   flex-direction: column;
   justify-content: center;
   flex: 1;
-  min-width: 0; /* Evita desbordamiento */
+  min-width: 0;
 }
 
 .search-item-title {
-  color: #ffffff;
+  color: var(--text-main);
   font-size: 0.9rem;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
 }
 
 .search-item-meta {
@@ -233,43 +258,54 @@
 }
 
 .search-item-year {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-tertiary);
   font-size: 0.75rem;
 }
 
 .search-item-rating {
-  color: #ffb800;
+  color: #ffc107;
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 /* ── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .navbar {
-    padding: 0 1.5rem;
-    height: 65px;
+    width: 94%;
+    padding: 0 1.25rem;
+    height: 60px;
+    margin: 0.8rem auto;
+  }
+
+  .logo {
+    font-size: 1.1rem;
   }
 
   .nav-links {
     position: static;
     transform: none;
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
   .nav-links a {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 
   .search-container {
-    width: 150px;
+    width: 140px;
+  }
+
+  .search-container:focus-within {
+    width: 170px;
   }
 
   .search-input {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.8rem;
+    font-size: 0.75rem;
+    padding: 0.45rem 0.8rem;
   }
 
   .search-dropdown {
-    width: 280px;
+    width: 290px;
+    right: -10px;
   }
 }
