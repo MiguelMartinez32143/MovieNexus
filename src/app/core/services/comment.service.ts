@@ -9,9 +9,6 @@ import { Observable } from 'rxjs';
 export class CommentService {
   private http = inject(HttpClient);
 
-  // ------------------------------------------------------------
-  // 👉 CONFIGURACIÓN PERSONALIZADA - ¡CAMBIA ESTOS VALORES!
-  // ------------------------------------------------------------
 
   /** URL de la API suministrada por el instructor */
   private API_URL = 'https://api-comentarios-gm6f.onrender.com/api/comments';
@@ -21,13 +18,11 @@ export class CommentService {
    * Usa una combinación de tu proyecto y tu nombre para no mezclar datos.
    * Ejemplo: 'MovieNexus-Camila' o 'TechStudio-Juan'
    */
-  private APP_ID = 'MovieNexus-Aprendiz';
+  private APP_ID = 'MovieNexus-MigelMartinez';
 
   // ------------------------------------------------------------
 
-  /**
-   * Obtiene los comentarios de un ítem filtrados por tu AppID
-   */
+
   getComments(itemId: string): Observable<Comment[]> {
     return this.http.get<Comment[]>(`${`${this.API_URL}/${this.APP_ID}`}/${itemId}`);
   }
