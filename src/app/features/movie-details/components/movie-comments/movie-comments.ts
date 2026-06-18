@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../../../../core/services/comment.service';
@@ -16,17 +16,17 @@ export class MovieComments implements OnInit {
 
   @Input() movieId!: number; // Recibe el ID desde la pantalla de detalles
 
-  comments: Comment[] = [];
-  loading = false;
-  error = '';
-  submitting = false;
+  comments = signal<Comment[]>([]);
+  loading = signal(false);
+  error = signal('');
+  submitting = signal(false);
 
   // Campos del formulario
   authorName = '';
   commentText = '';
   selectedRating = 5;
   showForm = false;
-  successMessage = '';
+  successMessage = signal('');
 
   get itemId(): string {
     return `movie-${this.movieId}`;
@@ -37,25 +37,26 @@ export class MovieComments implements OnInit {
   }
 
   loadComments(): void {
-    this.loading = true;
-    this.error = '';
+    this.loading.set(true);
+    this.error.set('');
     this.commentService.getComments(this.itemId).subscribe({
       next: (data) => {
-        this.comments = data.sort(
+        const sorted = data.sort(
           (a, b) => new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
         );
-        this.loading = false;
+        this.comments.set(sorted);
+        this.loading.set(false);
       },
       error: (err) => {
-        this.error = 'No se pudieron cargar los comentarios. Asegúrate de que la API está activa.';
-        this.loading = false;
+        this.error.set('No se pudieron cargar los comentarios. Asegúrate de que la API está activa.');
+        this.loading.set(false);
       }
     });
   }
 
   toggleForm(): void {
     this.showForm = !this.showForm;
-    this.successMessage = '';
+    this.successMessage.set('');
   }
 
   setRating(value: number): void {
@@ -64,7 +65,7 @@ export class MovieComments implements OnInit {
 
   submitComment(): void {
     if (!this.authorName.trim() || !this.commentText.trim()) return;
-    this.submitting = true;
+    this.submitting.set(true);
 
     this.commentService.addComment(
       this.itemId,
@@ -73,19 +74,20 @@ export class MovieComments implements OnInit {
       this.selectedRating
     ).subscribe({
       next: (newComment) => {
-        this.comments.unshift(newComment);
+        this.comments.update((allComments) => [newComment, ...allComments]);
         this.authorName = '';
         this.commentText = '';
         this.selectedRating = 5;
         this.showForm = false;
-        this.submitting = false;
-        this.successMessage = '¡Comentario publicado exitosamente! ✅';
-        setTimeout(() => this.successMessage = '', 3000);
+        this.submitting.set(false);
+        this.successMessage.set('¡Comentario publicado exitosamente! ✅');
+        setTimeout(() => this.successMessage.set(''), 3000);
       },
       error: () => {
-        this.submitting = false;
-        this.error = 'Error al publicar. Reintenta de nuevo.';
+        this.submitting.set(false);
+        this.error.set('Error al publicar. Reintenta de nuevo.');
       }
     });
   }
 }
+
