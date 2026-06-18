@@ -1,4 +1,14 @@
-import { Component, inject, OnInit, signal, AfterViewInit, ElementRef, ViewChild, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  signal,
+  AfterViewInit,
+  ElementRef,
+  ViewChild,
+  PLATFORM_ID,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MovieService } from '../../core/services/movie.service';
 import { Hero } from './components/hero/hero';
@@ -14,6 +24,7 @@ import { SkeletonCard } from '../../shared/components/skeleton-card/skeleton-car
   standalone: true,
   imports: [CommonModule, Hero, MovieSlider, MovieCard, SkeletonHero, SkeletonCard],
   templateUrl: './home.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './home.css',
 })
 export class Home implements OnInit, AfterViewInit {
@@ -32,19 +43,17 @@ export class Home implements OnInit, AfterViewInit {
   isFetchingNextPage = signal(false);
 
   ngOnInit(): void {
-    this.movieService.getTrendingMovies().subscribe(data => {
+    this.movieService.getTrendingMovies().subscribe((data) => {
       if (data.results.length > 0) {
-
         this.trendingMovies.set(data.results);
         this.featuredMovie.set(data.results[0]);
-
       }
     });
 
     this.movieService.getPopularMovies().subscribe({
       next: (data) => {
         this.popularMovies.set(data.results);
-      }
+      },
     });
   }
 
@@ -56,12 +65,15 @@ export class Home implements OnInit, AfterViewInit {
   }
 
   private initInfiniteScroll(): void {
-    const observer = new IntersectionObserver((entries) => {
-      // 4. Si el ancla entra en el campo de visión y no estamos cargando...
-      if (entries[0].isIntersecting && !this.isFetchingNextPage()) {
-        this.loadMoreMovies();
-      }
-    }, { rootMargin: '200px' }); // 'rootMargin' permite cargar 200px antes de llegar al final
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // 4. Si el ancla entra en el campo de visión y no estamos cargando...
+        if (entries[0].isIntersecting && !this.isFetchingNextPage()) {
+          this.loadMoreMovies();
+        }
+      },
+      { rootMargin: '200px' },
+    ); // 'rootMargin' permite cargar 200px antes de llegar al final
 
     observer.observe(this.infiniteAnchor.nativeElement);
   }
@@ -75,11 +87,11 @@ export class Home implements OnInit, AfterViewInit {
         this.catalogMovies.set(updatedMovies);
         this.movieService.catalogMoviesCache = updatedMovies;
 
-        this.currentPage.update(p => p + 1);
+        this.currentPage.update((p) => p + 1);
         this.movieService.currentPageCache = this.currentPage();
 
         this.isFetchingNextPage.set(false);
-      }
+      },
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieService } from '../../core/services/movie.service';
 import { EmptyStateComponent } from '../../shared/components/empty-state/empty-state';
@@ -9,7 +9,8 @@ import { MovieCard } from '../../shared/components/movie-card/movie-card';
   standalone: true,
   imports: [CommonModule, EmptyStateComponent, MovieCard],
   templateUrl: './favorites.html',
-  styleUrl: './favorites.css'
+  changeDetection: ChangeDetectionStrategy.Eager,
+  styleUrl: './favorites.css',
 })
 export class Favorites {
   private movieService = inject(MovieService);

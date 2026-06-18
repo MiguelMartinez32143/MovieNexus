@@ -11,10 +11,24 @@ const envConfigFile = `export const environment = {
 };
 `;
 
+const envConfigFileDev = `export const environment = {
+  production: false,
+  baseUrl: 'https://api.themoviedb.org/3',
+  apiKey: '${apiKey}',
+  imgPath: 'https://image.tmdb.org/t/p/w500'
+};
+`;
+
 const targetFolderPath = './src/environments';
 if (!fs.existsSync(targetFolderPath)) {
   fs.mkdirSync(targetFolderPath, { recursive: true });
 }
+
 const targetPath = './src/environments/environment.ts';
 fs.writeFileSync(targetPath, envConfigFile);
-console.log(' Archivo environment.ts generado correctamente en Vercel.');
+console.log(' Archivo environment.ts generado correctamente.');
+
+const targetDevPath = './src/environments/environment.development.ts';
+fs.writeFileSync(targetDevPath, envConfigFileDev);
+console.log(' Archivo environment.development.ts generado correctamente.');
+

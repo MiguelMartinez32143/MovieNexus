@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Hero } from './hero';
 
 describe('Hero', () => {
@@ -13,6 +12,12 @@ describe('Hero', () => {
 
     fixture = TestBed.createComponent(Hero);
     component = fixture.componentInstance;
+    component.movie = {
+      id: 1,
+      title: 'Mock Movie',
+      backdrop_path: '/backdrop.jpg',
+      overview: 'Mock description',
+    } as any;
     await fixture.whenStable();
   });
 
@@ -20,3 +25,4 @@ describe('Hero', () => {
     expect(component).toBeTruthy();
   });
 });
+
