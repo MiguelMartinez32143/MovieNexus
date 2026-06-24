@@ -6,11 +6,24 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
+import { createRequire } from 'node:module';
 
+const require = createRequire(import.meta.url);
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
+app.use(express.json());
 const angularApp = new AngularNodeAppEngine();
+
+app.post('/api/chat', async (req, res, next) => {
+  try {
+    const handlerPath = join(process.cwd(), 'api/chat.js');
+    const handler = require(handlerPath);
+    await handler(req, res);
+  } catch (err) {
+    next(err);
+  }
+});
 
 /**
  * Example Express Rest API endpoints can be defined here.

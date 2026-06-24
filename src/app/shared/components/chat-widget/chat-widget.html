@@ -1,0 +1,91 @@
+<!-- Botón flotante para abrir/cerrar el chat -->
+<button class="chat-toggle-btn" (click)="toggleChat()" aria-label="Abrir chat con asistente cinéfilo">
+  <span class="toggle-icon" *ngIf="!isOpen()">🎬</span>
+  <span class="toggle-icon" *ngIf="isOpen()">✕</span>
+  <span class="pulse-ring"></span>
+</button>
+
+<!-- Contenedor del panel de Chat estilo Glassmorphism -->
+<div class="chat-container" [class.open]="isOpen()">
+  <!-- Cabecera del chat -->
+  <div class="chat-header">
+    <div class="header-info">
+      <span class="status-indicator"></span>
+      <div>
+        <h3>Cerebro Cinéfilo IA</h3>
+        <p>Tu asistente experto en películas</p>
+      </div>
+    </div>
+    <button class="close-btn" (click)="toggleChat()" aria-label="Cerrar chat">✕</button>
+  </div>
+
+  <!-- Cuerpo del chat (mensajes) -->
+  <div class="chat-body" #chatBody>
+    <div class="welcome-message" *ngIf="geminiService.history().length === 0">
+      <div class="welcome-icon">🍿</div>
+      <h4>¡Hola, cinéfilo!</h4>
+      <p>Pregúntame sobre directores, actores, géneros o pídeme recomendaciones personalizadas. ¡Hablemos de buen cine!</p>
+    </div>
+
+    <div class="message-wrapper" *ngFor="let msg of geminiService.history()" [ngClass]="msg.role">
+      <div class="message-bubble">
+        <!-- Renderizado de Markdown Seguro -->
+        <div class="message-text" [innerHTML]="parseMarkdown(msg.text)"></div>
+
+        <!-- Indicador de carga de IA (Pensando...) -->
+        <div class="typing-loader" *ngIf="msg.loading">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <!-- Carrusel de Películas Recomendadas (Bajo la burbuja del Asistente) -->
+      <div class="movies-carousel-wrapper" *ngIf="msg.role === 'model' && (msg.movies && msg.movies.length > 0 || msg.loadingMovies)">
+        <div class="carousel-title">
+          <span>🎬 Películas mencionadas</span>
+          <span class="carousel-divider"></span>
+        </div>
+
+        <!-- Loader de películas -->
+        <div class="movies-loader" *ngIf="msg.loadingMovies">
+          <div class="mini-skeleton-card" *ngFor="let i of [1, 2]">
+            <div class="skeleton-img skeleton-base"></div>
+            <div class="skeleton-text skeleton-base"></div>
+          </div>
+        </div>
+
+        <!-- Carrusel con scroll horizontal -->
+        <div class="movies-carousel" *ngIf="!msg.loadingMovies && msg.movies && msg.movies.length > 0">
+          <div class="carousel-card" *ngFor="let movie of msg.movies" [routerLink]="['/movie', movie.id]" (click)="toggleChat()">
+            <img [src]="getMoviePoster(movie.poster_path)" [alt]="movie.title" class="card-img" loading="lazy">
+            <div class="card-info">
+              <span class="card-title">{{ movie.title }}</span>
+              <div class="card-rating">
+                <span class="star-icon">★</span>
+                <span>{{ movie.vote_average | number:'1.1-1' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie del chat (entrada de mensaje) -->
+  <div class="chat-footer">
+    <input 
+      type="text" 
+      placeholder="Escribe tu mensaje cinéfilo..." 
+      [(ngModel)]="messageText" 
+      (keyup.enter)="sendMessage()"
+      [disabled]="false"
+      aria-label="Mensaje para el asistente"
+    >
+    <button class="send-btn" (click)="sendMessage()" [disabled]="!messageText().trim()" aria-label="Enviar mensaje">
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+      </svg>
+    </button>
+  </div>
+</div>
