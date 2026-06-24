@@ -16,7 +16,7 @@ El flujo de comunicación del chat está diseñado en tres capas para asegurar e
 [Proxy Backend (Vercel API / Express)]
              │
              ▼ (Carga la GEMINI_API_KEY del servidor)
-[API de Gemini (gemini-2.5-flash)]
+[API de Gemini (gemini-3.1-flash-lite)]
 ```
 
 ### Componentes Clave:
