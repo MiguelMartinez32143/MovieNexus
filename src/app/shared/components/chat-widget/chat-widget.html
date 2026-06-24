@@ -1,7 +1,15 @@
 <!-- Botón flotante para abrir/cerrar el chat -->
 <button class="chat-toggle-btn" (click)="toggleChat()" aria-label="Abrir chat con asistente cinéfilo">
-  <span class="toggle-icon" *ngIf="!isOpen()">🎬</span>
-  <span class="toggle-icon" *ngIf="isOpen()">✕</span>
+  <span class="toggle-icon" *ngIf="!isOpen()">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+      <path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM10 14.5v-5l4.5 2.5-4.5 2.5z"/>
+    </svg>
+  </span>
+  <span class="toggle-icon" *ngIf="isOpen()">
+    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+    </svg>
+  </span>
   <span class="pulse-ring"></span>
 </button>
 
@@ -22,7 +30,11 @@
   <!-- Cuerpo del chat (mensajes) -->
   <div class="chat-body" #chatBody>
     <div class="welcome-message" *ngIf="geminiService.history().length === 0">
-      <div class="welcome-icon">🍿</div>
+      <div class="welcome-icon">
+        <svg viewBox="0 0 24 24" width="40" height="40" fill="currentColor" style="display: block; margin: 0 auto 12px; opacity: 0.8;">
+          <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+        </svg>
+      </div>
       <h4>¡Hola, cinéfilo!</h4>
       <p>Pregúntame sobre directores, actores, géneros o pídeme recomendaciones personalizadas. ¡Hablemos de buen cine!</p>
     </div>
@@ -43,7 +55,12 @@
       <!-- Carrusel de Películas Recomendadas (Bajo la burbuja del Asistente) -->
       <div class="movies-carousel-wrapper" *ngIf="msg.role === 'model' && (msg.movies && msg.movies.length > 0 || msg.loadingMovies)">
         <div class="carousel-title">
-          <span>🎬 Películas mencionadas</span>
+          <span style="display: inline-flex; align-items: center; gap: 6px;">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" style="display: inline-block;">
+              <path d="M18 4l2 4h-3l-2-4h-2l2 4h-3l-2-4H8l2 4H7L5 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4h-4z"/>
+            </svg>
+            Películas mencionadas
+          </span>
           <span class="carousel-divider"></span>
         </div>
 
