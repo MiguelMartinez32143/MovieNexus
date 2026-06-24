@@ -36,7 +36,19 @@
         </svg>
       </div>
       <h4>¡Hola, cinéfilo!</h4>
-      <p>Pregúntame sobre directores, actores, géneros o pídeme recomendaciones personalizadas. ¡Hablemos de buen cine!</p>
+      <p>Pregúntame sobre directores, actores o géneros. Hablemos de buen cine:</p>
+
+      <!-- Sugerencias de preguntas pregeneradas -->
+      <div class="suggestions-container">
+        <div class="suggestions-list">
+          <button 
+            *ngFor="let suggestion of suggestions" 
+            class="suggestion-chip" 
+            (click)="selectSuggestion(suggestion)">
+            {{ suggestion }}
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="message-wrapper" *ngFor="let msg of geminiService.history()" [ngClass]="msg.role">

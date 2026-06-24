@@ -17,6 +17,13 @@ export class ChatWidget implements AfterViewChecked {
   protected messageText = signal<string>('');
   private shouldScroll = false;
 
+  protected suggestions = [
+    'Recomiéndame películas de suspenso psicológico',
+    '¿Qué clásicos de ciencia ficción son indispensables?',
+    'Recomiéndame películas similares a Interstellar',
+    '¿Qué películas destacan de Christopher Nolan?'
+  ];
+
   @ViewChild('chatBody') private chatBodyEl!: ElementRef;
 
   constructor() {
@@ -47,6 +54,10 @@ export class ChatWidget implements AfterViewChecked {
 
     this.geminiService.sendMessage(text);
     this.messageText.set('');
+  }
+
+  selectSuggestion(suggestion: string) {
+    this.geminiService.sendMessage(suggestion);
   }
 
   parseMarkdown(text: string): string {
