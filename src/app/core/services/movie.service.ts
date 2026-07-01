@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/environment';
-import { Movie, MovieResponse } from '../models/movie.model';
+import { Movie, MovieResponse, WatchProvidersResponse } from '../models/movie.model';
 import { CreditsResponse } from '../models/cast.model';
 import { delay, of, tap } from 'rxjs';
 
@@ -95,6 +95,10 @@ export class MovieService {
 
   getMovieCredits(id: string | number) {
     return this.http.get<CreditsResponse>(`${this.apiUrl}/movie/${id}/credits`);
+  }
+
+  getWatchProviders(id: string | number) {
+    return this.http.get<WatchProvidersResponse>(`${this.apiUrl}/movie/${id}/watch/providers`);
   }
 
   /**
