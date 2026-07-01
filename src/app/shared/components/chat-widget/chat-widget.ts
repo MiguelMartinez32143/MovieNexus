@@ -120,6 +120,11 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
         this.recognition.onerror = (event: any) => {
           console.error('Speech recognition error', event);
           this.isRecording.set(false);
+          if (event.error === 'not-allowed') {
+            alert('Acceso al micrófono denegado. Por favor, permite el uso del micrófono en la barra de direcciones de tu navegador para poder dictar.');
+          } else if (event.error !== 'aborted') {
+            alert('Error en el reconocimiento de voz: ' + event.error);
+          }
         };
 
         this.recognition.onresult = (event: any) => {
@@ -151,7 +156,7 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
     }
 
     if (!this.recognition) {
-      console.warn('Speech recognition is not supported in this browser.');
+      alert('Tu navegador actual no soporta el reconocimiento de voz. Te recomendamos usar Google Chrome, Microsoft Edge o Safari para esta función.');
       return;
     }
 
@@ -168,6 +173,7 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
         this.recognition.start();
       } catch (err) {
         console.error('Error starting recognition', err);
+        alert('No se pudo iniciar el dictado por voz. Asegúrate de que el micrófono esté conectado.');
       }
     }
   }
