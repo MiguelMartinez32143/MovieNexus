@@ -18,6 +18,7 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
   protected isRecording = signal<boolean>(false);
   private recognition: any = null;
   private recordingTimeout: any = null;
+  private lastSentTranscript = '';
   private shouldScroll = false;
 
   protected suggestions = [
@@ -57,6 +58,7 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
 
     this.geminiService.sendMessage(text);
     this.messageText.set('');
+    this.stopRecording(); // Detiene la grabación si estaba activa
   }
 
   selectSuggestion(suggestion: string) {
@@ -132,15 +134,16 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
           for (let i = 0; i < event.results.length; i++) {
             transcript += event.results[i][0].transcript;
           }
-          if (transcript.trim()) {
+          transcript = transcript.trim();
+          if (transcript && transcript !== this.lastSentTranscript) {
             this.messageText.set(transcript);
             
             if (this.recordingTimeout) {
               clearTimeout(this.recordingTimeout);
             }
             this.recordingTimeout = setTimeout(() => {
+              this.lastSentTranscript = transcript;
               this.sendMessage();
-              this.stopRecording();
             }, 600);
           }
         };
@@ -168,6 +171,7 @@ export class ChatWidget implements AfterViewChecked, OnDestroy {
   }
 
   startRecording() {
+    this.lastSentTranscript = ''; // Reinicia el transcript para la nueva sesión
     if (this.recognition) {
       try {
         this.recognition.start();
